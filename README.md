@@ -1,8 +1,9 @@
 About
 =====
-This repository contains automation to build MongoDB from source with no AVX requirement. The artifact generated is an `x86_64` Docker container for Linux, and it is pushed to my own public AWS ECR space: https://gallery.ecr.aws/alanedwardes/mongodb-without-avx
+This repository contains automation to build MongoDB from source with no AVX requirement. The artifact generated is an `x86_64` Docker container for Linux, and it is pushed to my own public AWS ECR space:
+* https://gallery.ecr.aws/alanedwardes/mongodb-without-avx
 
-> Since I need this for my own projects, I intend to keep the above repository up to date with the major MongoDB versions. I am not intending to build every single minor or patch version, though can do on request (raise an issue).
+Since I need this for my own projects, I intend to keep the above repository up to date with the major MongoDB versions. I am not intending to build every single minor or patch version, though can build specific versions on request (raise an issue).
 
 See the forked repository for the original `Dockerfile`, and a solution to build for non-Docker use cases.
 
