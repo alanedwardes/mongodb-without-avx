@@ -31,6 +31,7 @@ RUN export GIT_PYTHON_REFRESH=quiet && \
     mv build/install /install && \
     strip --strip-debug /install/bin/mongod && \
     strip --strip-debug /install/bin/mongos && \
+    strip --strip-debug /install/bin/mongo && \
     rm -rf build
 
 FROM debian:11
