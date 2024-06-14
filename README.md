@@ -63,4 +63,11 @@ If you need to set up a replica set on first run, you can use the mongo shell:
 docker exec -it mondodb mongo
 ```
 
-And then enter `rs.initiate()` as normal.
+And then enter `rs.initiate()` as normal. You may need to explicitly provide the hostname configured against the container:
+
+```javascript
+rs.initiate({
+  _id: "rs0",
+  members: [{ _id: 0, host: "mongodb:27017" }],
+});
+```
