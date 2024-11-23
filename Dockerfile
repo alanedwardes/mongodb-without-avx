@@ -1,4 +1,4 @@
-FROM debian:11 as build
+FROM debian:12 as build
 
 RUN apt update -y && apt install -y build-essential \
         libcurl4-openssl-dev \
@@ -6,6 +6,7 @@ RUN apt update -y && apt install -y build-essential \
         libssl-dev \
         python-dev-is-python3 \
         python3-pip \
+        lld \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,8 +25,8 @@ RUN patch -p0 < /no_avx_patch.diff
 ARG NUM_JOBS=
 
 RUN export GIT_PYTHON_REFRESH=quiet && \
-    python3 -m pip install requirements_parser && \
-    python3 -m pip install -r etc/pip/compile-requirements.txt && \
+    python3 -m pip install requirements_parser --break-system-packages && \
+    python3 -m pip install -r etc/pip/compile-requirements.txt --break-system-packages && \
     if [ "${NUM_JOBS}" -gt 0 ]; then export JOBS_ARG="-j ${NUM_JOBS}"; fi && \
     python3 buildscripts/scons.py install-devcore MONGO_VERSION="${MONGO_VERSION}" --release --disable-warnings-as-errors ${JOBS_ARG} && \
     mv build/install /install && \
@@ -34,7 +35,7 @@ RUN export GIT_PYTHON_REFRESH=quiet && \
     strip --strip-debug /install/bin/mongo && \
     rm -rf build
 
-FROM debian:11
+FROM debian:12
 
 RUN apt update -y && \
     apt install -y libcurl4 && \
